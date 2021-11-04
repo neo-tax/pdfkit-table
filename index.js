@@ -16,8 +16,10 @@ class PDFDocumentWithTables extends PDFDocument {
   /**
    * addBackground
    * @param {Object} rect
-   * @param {String} fillColor
-   * @param {Number} fillOpacity
+   * @param {String} backgroundColor
+   * @param {Number} backgroundOpacity
+   * @param {String} textColor
+   * @param {Number} textOpacity
    */
   addBackground(
     { x, y, width, height },
@@ -488,6 +490,8 @@ class PDFDocumentWithTables extends PDFDocument {
 
     let lastPositionX;
 
+    this.fillColor("black").fillOpacity(1).fill();
+
     // Datas
     table.datas.forEach((row, i) => {
       const rowHeight = computeRowHeight(row);
@@ -513,11 +517,12 @@ class PDFDocumentWithTables extends PDFDocument {
 
       // Print all cells of the current row
       table.headers.forEach((dataHeader, index) => {
-        let { property, width, renderer, align, padding } = dataHeader;
+        let { property, width, renderer, align, dataAlign, padding } =
+          dataHeader;
 
         // check defination
         width = width || columnWidth;
-        align = align || "left";
+        align = dataAlign || align || "left";
 
         // cell padding
         cellPadding = prepareCellPadding(padding || options.padding || 0);
