@@ -19,21 +19,29 @@ class PDFDocumentWithTables extends PDFDocument {
    * @param {String} fillColor
    * @param {Number} fillOpacity
    */
-  addBackground({ x, y, width, height }, fillColor, fillOpacity) {
+  addBackground(
+    { x, y, width, height },
+    backgroundColor,
+    backgroundOpacity,
+    textColor,
+    textOpacity
+  ) {
     // validate
-    fillColor || (fillColor = "grey");
-    fillOpacity || (fillOpacity = 0.1);
+    backgroundColor || (backgroundColor = "grey");
+    backgroundOpacity || (backgroundOpacity = 0.1);
+    textColor || (textColor = "black");
+    textOpacity || (textOpacity = 1);
 
     // draw bg
-    this.fill(fillColor)
+    this.fill(backgroundColor)
       //.stroke(fillColor)
-      .fillOpacity(fillOpacity)
+      .fillOpacity(backgroundOpacity)
       .rect(x, y, width, height)
       //.stroke()
       .fill();
 
     // restore
-    this.fillColor("white").fillOpacity(1).fill();
+    this.fillColor(textColor).fillOpacity(textOpacity).fill();
   }
 
   /**
@@ -416,6 +424,8 @@ class PDFDocumentWithTables extends PDFDocument {
               align,
               headerColor,
               headerOpacity,
+              textColor,
+              textOpacity,
               padding,
             } = dataHeader;
             // check defination
@@ -438,7 +448,13 @@ class PDFDocumentWithTables extends PDFDocument {
             };
 
             // add background
-            this.addBackground(rectCell, headerColor, headerOpacity);
+            this.addBackground(
+              rectCell,
+              headerColor,
+              headerOpacity,
+              textColor,
+              textOpacity
+            );
 
             // cell padding
             cellPadding = prepareCellPadding(padding || options.padding || 0);
