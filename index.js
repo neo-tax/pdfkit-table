@@ -517,12 +517,11 @@ class PDFDocumentWithTables extends PDFDocument {
 
       // Print all cells of the current row
       table.headers.forEach((dataHeader, index) => {
-        let { property, width, renderer, align, dataAlign, padding } =
-          dataHeader;
+        let { property, width, renderer, align, padding } = dataHeader;
 
         // check defination
         width = width || columnWidth;
-        align = dataAlign || align || "left";
+        align = align || "left";
 
         // cell padding
         cellPadding = prepareCellPadding(padding || options.padding || 0);
@@ -657,6 +656,8 @@ class PDFDocumentWithTables extends PDFDocument {
             )); // text-cell, index-column, index-line, row
           // align
           table.headers[index].align && (align = table.headers[index].align);
+          table.headers[index].dataAlign &&
+            (align = table.headers[index].dataAlign);
         }
 
         // cell padding
