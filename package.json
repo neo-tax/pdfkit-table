@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/natancabral/pdfkit-table#readme",
   "dependencies": {
-    "pdfkit": "latest"
+    "@types/pdfkit": "0.12.1",
+    "pdfkit": "0.12.3"
   }
 }
